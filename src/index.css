@@ -240,22 +240,25 @@ h2 {
 }
 
 .tech-categories {
-  display: grid;
-  gap: 2rem;
+  background: #000000;
+  border: 1px solid #222222;
+  padding: 2rem;
   margin-top: 2rem;
 }
 
 .tech-category {
-  background: #000000;
-  border: 1px solid #222222;
-  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.tech-category:last-child {
+  margin-bottom: 0;
 }
 
 .tech-category h3 {
   font-size: 1.125rem;
   font-weight: 400;
   color: #ffffff;
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 1rem 0;
   border-bottom: 1px solid #333333;
   padding-bottom: 0.75rem;
 }

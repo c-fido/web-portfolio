@@ -4,17 +4,17 @@ function App() {
   const projects = [
     {
       title: "Sports Warehouse",
-      description: "A mobile app made for a Software Engineering class project.",
-      technologies: ["Javascript", "React", "PHP", "MongoDB"]
+      description: "A mobile app made for a Software Engineering class project. Used React Native for the frontend and PHP with MongoDB for the backend.",
+      technologies: ["Javascript", "React", "PHP", "MongoDB", "RestAPIs"]
     },
     {
       title: "Portfolio Website",
       description: "The site you are visiting now! Made for showcasing my projects and experience.",
-      technologies: ["JavaScript", "React", "TailwindCSS"]
+      technologies: ["JavaScript", "React", "CSS", "HTML"]
     },
     {
       title: "Simple Web Scanner",
-      description: "Simple web vulnerability scanner built in Python for educational purposes.",
+      description: "A simple web vulnerability scanner built in Python for educational purposes. Designed to find SQL Injection and XSS vulnerabilites.",
       technologies: ["Python", "BeautifulSoup"]
     }
   ];
@@ -24,8 +24,8 @@ function App() {
       role: "Intern",
       company: "turingpoint.",
       period: "Sep 2025 - Present",
-      description: "Assisted in the development of a web database containing web vulnerabilities and exploits for client and developer use.",
-      technologies: ["Python", "BeautifulSoup", "OpenAI API", "Figma"],
+      description: "Developed a web database containing web vulnerabilities and exploits for client and developer use. Designed in Figma and implemented web scraping using Python's BeautifulSoup library.",
+      technologies: ["Python", "BeautifulSoup", "OpenAI API", "LiteLLM", "Brave Search API", "Figma"],
     }
   ];
   const technologies = {
@@ -62,7 +62,7 @@ function App() {
           </div>
           <p className="tagline">Full Time Student studying Computer Science and German</p>
           <p className="intro">
-            Passionate about web development, software engineering, and cybersecurity.
+            I love learning more about web development, software engineering, and cybersecurity. Reach out with the buttons above!
           </p>
         </header>
 
@@ -96,7 +96,7 @@ function App() {
                   <span className="company">{job.company}</span>
                   <span className="period">{job.period}</span>
                 </div>
-                <p>{job.description}</p>
+                <p style="margin-bottom: 24px;">{job.description}</p>
                 <div className="tech-stack">
                   {job.technologies.map((tech, techIndex) => (
                     <span key={techIndex} className="tech-tag">{tech}</span>
