@@ -96,7 +96,7 @@ function App() {
                   <span className="company">{job.company}</span>
                   <span className="period">{job.period}</span>
                 </div>
-                <p>{job.description}</p>
+                <p style="margin-bottom: 24px;">{job.description}</p>
                 <div className="tech-stack">
                   {job.technologies.map((tech, techIndex) => (
                     <span key={techIndex} className="tech-tag">{tech}</span>
