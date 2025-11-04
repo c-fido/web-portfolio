@@ -4,17 +4,17 @@ function App() {
   const projects = [
     {
       title: "Sports Warehouse",
-      description: "A mobile app made for a Software Engineering class project. Used React Native for the frontend and PHP with MongoDB for the backend.",
-      technologies: ["Javascript", "React", "PHP", "MongoDB", "RestAPIs"]
+      description: "A mobile app made for a Software Engineering class project. Allows users to browse and purchase sports equipment.",
+      technologies: ["Javascript", "React", "PHP", "MongoDB"]
     },
     {
       title: "Portfolio Website",
       description: "The site you are visiting now! Made for showcasing my projects and experience.",
-      technologies: ["JavaScript", "React", "CSS", "HTML"]
+      technologies: ["JavaScript", "React", "TailwindCSS"]
     },
     {
       title: "Simple Web Scanner",
-      description: "A simple web vulnerability scanner built in Python for educational purposes. Designed to find SQL Injection and XSS vulnerabilites.",
+      description: "Simple web vulnerability scanner built in Python for educational purposes. Detects common vulnerabilities such as XSS, SQL Injection, and Open Redirects.",
       technologies: ["Python", "BeautifulSoup"]
     }
   ];
@@ -96,7 +96,7 @@ function App() {
                   <span className="company">{job.company}</span>
                   <span className="period">{job.period}</span>
                 </div>
-                <p style="margin-bottom: 24px;">{job.description}</p>
+                <p style={{ marginBottom: '24px' }}>{job.description}</p>
                 <div className="tech-stack">
                   {job.technologies.map((tech, techIndex) => (
                     <span key={techIndex} className="tech-tag">{tech}</span>
