@@ -5,12 +5,12 @@ function App() {
     {
       title: "Sports Warehouse",
       description: "A mobile app made for a Software Engineering class project. Allows users to browse and purchase sports equipment.",
-      technologies: ["Javascript", "React", "PHP", "MongoDB"]
+      technologies: ["Javascript", "React", "PHP", "MongoDB", "SQL"]
     },
     {
       title: "Portfolio Website",
       description: "The site you are visiting now! Made for showcasing my projects and experience.",
-      technologies: ["JavaScript", "React", "TailwindCSS"]
+      technologies: ["JavaScript", "React", "CSS", "HTML"]
     },
     {
       title: "Simple Web Scanner",
