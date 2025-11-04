@@ -24,8 +24,8 @@ function App() {
       role: "Intern",
       company: "turingpoint.",
       period: "Sep 2025 - Present",
-      description: "Assisted in the development of a web database containing web vulnerabilities and exploits for client and developer use.",
-      technologies: ["Python", "BeautifulSoup", "OpenAI API", "Figma"],
+      description: "Developed a web database containing web vulnerabilities and exploits for client and developer use. Designed in Figma and implemented web scraping using Python's BeautifulSoup library.",
+      technologies: ["Python", "BeautifulSoup", "OpenAI API", "LiteLLM", "Brave Search API", "Figma"],
     }
   ];
   const technologies = {
@@ -62,7 +62,7 @@ function App() {
           </div>
           <p className="tagline">Full Time Student studying Computer Science and German</p>
           <p className="intro">
-            Passionate about web development, software engineering, and cybersecurity.
+            I love learning more about web development, software engineering, and cybersecurity. Reach out with the buttons above!
           </p>
         </header>
 
