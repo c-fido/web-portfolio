@@ -4,17 +4,17 @@ function App() {
   const projects = [
     {
       title: "Sports Warehouse",
-      description: "A mobile app made for a Software Engineering class project.",
-      technologies: ["Javascript", "React", "PHP", "MongoDB"]
+      description: "A mobile app made for a Software Engineering class project. Used React Native for the frontend and PHP with MongoDB for the backend.",
+      technologies: ["Javascript", "React", "PHP", "MongoDB", "RestAPIs"]
     },
     {
       title: "Portfolio Website",
       description: "The site you are visiting now! Made for showcasing my projects and experience.",
-      technologies: ["JavaScript", "React", "TailwindCSS"]
+      technologies: ["JavaScript", "React", "CSS", "HTML"]
     },
     {
       title: "Simple Web Scanner",
-      description: "Simple web vulnerability scanner built in Python for educational purposes.",
+      description: "A simple web vulnerability scanner built in Python for educational purposes. Designed to find SQL Injection and XSS vulnerabilites.",
       technologies: ["Python", "BeautifulSoup"]
     }
   ];
