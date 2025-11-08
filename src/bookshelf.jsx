@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './bookshelf.css';
 
@@ -65,6 +65,17 @@ function Bookshelf() {
     fetchBooksFromAPI();
   }, []);
 
+  // Preload critical images (first few book covers)
+  useEffect(() => {
+    const preloadImages = [...readingBooks, ...wantToReadBooks].slice(0, 4);
+    preloadImages.forEach((book) => {
+      if (book.cover) {
+        const img = new Image();
+        img.src = book.cover;
+      }
+    });
+  }, [readingBooks, wantToReadBooks]);
+
   // Cursor follow effect
   useEffect(() => {
     // Create cursor glow element
@@ -97,16 +108,21 @@ function Bookshelf() {
     };
   }, [selectedBook]); // Add selectedBook as dependency
 
-  // Window resize listener for responsive book chunking
+  // Window resize listener for responsive book chunking - debounced for performance
   useEffect(() => {
+    let resizeTimeout;
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        setWindowWidth(window.innerWidth);
+      }, 150); // Debounce resize events
     };
 
     window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimeout);
     };
   }, []);
 
@@ -384,8 +400,8 @@ function Bookshelf() {
     }
   };
 
-  // Helper function to split books into rows (chunks) - responsive
-  const chunkBooksIntoRows = (books) => {
+  // Helper function to split books into rows (chunks) - responsive - memoized
+  const chunkBooksIntoRows = useCallback((books) => {
     // Determine books per row based on screen size
     const getBooksPerRow = () => {
       if (windowWidth <= 480) return 2; // Very small screens: 2 books per shelf
@@ -400,7 +416,12 @@ function Bookshelf() {
       chunks.push(books.slice(i, i + booksPerRow));
     }
     return chunks;
-  };
+  }, [windowWidth]);
+
+  // Memoize chunked books to prevent unnecessary recalculations
+  const readingBookChunks = useMemo(() => chunkBooksIntoRows(readingBooks), [readingBooks, chunkBooksIntoRows]);
+  const wantToReadBookChunks = useMemo(() => chunkBooksIntoRows(wantToReadBooks), [wantToReadBooks, chunkBooksIntoRows]);
+  const readBookChunks = useMemo(() => chunkBooksIntoRows(readBooks), [readBooks, chunkBooksIntoRows]);
 
   // Update the return statement to wrap each section properly
   return (
@@ -421,7 +442,7 @@ function Bookshelf() {
               <div className="no-books">No books currently being read. Start a new adventure!</div>
             </div>
           )}
-          {readingBooks.length > 0 && chunkBooksIntoRows(readingBooks).map((booksRow, rowIndex) => (
+          {readingBooks.length > 0 && readingBookChunks.map((booksRow, rowIndex) => (
             <div key={rowIndex} className="books">
               {booksRow.map((book, index) => (
                 <div key={index} className="book-card" onClick={() => handleBookClick(book)}>
@@ -429,8 +450,11 @@ function Bookshelf() {
                     src={book.cover}
                     alt={`${book.title} cover`}
                     className="book-cover"
+                    loading="lazy"
+                    width="110"
+                    height="165"
                     onError={(e) => {
-                      e.target.src = `https://via.placeholder.com/120x180?text=${encodeURIComponent(book.title)}`;
+                      e.target.src = `https://via.placeholder.com/110x165/1a1e26/e4e8eb?text=${encodeURIComponent(book.title.substring(0, 20))}`;
                     }}
                   />
                   <div className="book-info">
@@ -459,7 +483,7 @@ function Bookshelf() {
               <div className="no-books">No books in your wishlist. Add some books you'd like to read!</div>
             </div>
           )}
-          {wantToReadBooks.length > 0 && chunkBooksIntoRows(wantToReadBooks).map((booksRow, rowIndex) => (
+          {wantToReadBooks.length > 0 && wantToReadBookChunks.map((booksRow, rowIndex) => (
             <div key={rowIndex} className="books">
               {booksRow.map((book, index) => (
                 <div key={index} className="book-card" onClick={() => handleBookClick(book)}>
@@ -467,8 +491,11 @@ function Bookshelf() {
                     src={book.cover}
                     alt={`${book.title} cover`}
                     className="book-cover"
+                    loading="lazy"
+                    width="110"
+                    height="165"
                     onError={(e) => {
-                      e.target.src = `https://via.placeholder.com/120x180?text=${encodeURIComponent(book.title)}`;
+                      e.target.src = `https://via.placeholder.com/110x165/1a1e26/e4e8eb?text=${encodeURIComponent(book.title.substring(0, 20))}`;
                     }}
                   />
                   <div className="book-info">
@@ -497,7 +524,7 @@ function Bookshelf() {
               <div className="no-books">No completed books yet. Finish reading to populate this shelf!</div>
             </div>
           )}
-          {readBooks.length > 0 && chunkBooksIntoRows(readBooks).map((booksRow, rowIndex) => (
+          {readBooks.length > 0 && readBookChunks.map((booksRow, rowIndex) => (
             <div key={rowIndex} className="books">
               {booksRow.map((book, index) => (
                 <div key={index} className="book-card" onClick={() => handleBookClick(book)}>
@@ -505,8 +532,11 @@ function Bookshelf() {
                     src={book.cover}
                     alt={`${book.title} cover`}
                     className="book-cover"
+                    loading="lazy"
+                    width="110"
+                    height="165"
                     onError={(e) => {
-                      e.target.src = `https://via.placeholder.com/120x180?text=${encodeURIComponent(book.title)}`;
+                      e.target.src = `https://via.placeholder.com/110x165/1a1e26/e4e8eb?text=${encodeURIComponent(book.title.substring(0, 20))}`;
                     }}
                   />
                   <div className="book-info">
@@ -540,8 +570,10 @@ function Bookshelf() {
                 src={selectedBook.cover}
                 alt={`${selectedBook.title} cover`}
                 className="book-modal-cover"
+                width="180"
+                height="270"
                 onError={(e) => {
-                  e.target.src = `https://via.placeholder.com/180x270?text=${encodeURIComponent(selectedBook.title)}`;
+                  e.target.src = `https://via.placeholder.com/180x270/1a1e26/e4e8eb?text=${encodeURIComponent(selectedBook.title.substring(0, 15))}`;
                 }}
               />
 
