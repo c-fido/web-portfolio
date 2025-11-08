@@ -758,6 +758,35 @@ h2::after {
   box-shadow: 0 0 15px rgba(127, 224, 235, 0.4);
 }
 
+/* Bookshelf Navigation Button */
+.navigate-bookshelf {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  background: rgba(139, 94, 60, 0.9);
+  /* Warm brown for bookshelf theme */
+  backdrop-filter: blur(20px);
+  border: 1px solid #8b5e3c;
+  color: #fdf6e3;
+  /* Cream color */
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: 'Merriweather', serif;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.navigate-bookshelf:hover {
+  background: rgba(107, 74, 47, 0.95);
+  border-color: #d4af37;
+  /* Gold accent */
+  transform: translateY(-1px);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
 /* Super German Mode */
 .beer-background {
   position: fixed;

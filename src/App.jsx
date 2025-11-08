@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './index.css';
 
 const content = {
@@ -131,6 +132,7 @@ const content = {
 
 function App() {
   const [language, setLanguage] = useState('en');
+  const navigate = useNavigate();
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'de' : 'en');
@@ -170,6 +172,13 @@ function App() {
         onClick={toggleLanguage}
       >
         {language === 'en' ? 'DE' : 'EN'}
+      </button>
+
+      <button
+        className="navigate-bookshelf"
+        onClick={() => navigate('/bookshelf')}
+      >
+        View Bookshelf
       </button>
 
       <div className="portfolio-content">

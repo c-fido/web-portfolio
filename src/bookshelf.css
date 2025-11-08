@@ -1,0 +1,363 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
+
+:root {
+  --deep-background: #0C0E12;
+  --light-text: #E4E8EB;
+  --stormlight-glow: #7FE0EB;
+  --sapphire-blue: #266DD3;
+  --neutral-base: #CFCFCF;
+  --highlight: #A7FFF6;
+  --cursor-x: 50vw;
+  --cursor-y: 50vh;
+  --cursor-opacity: 1;
+  --bookshelf-brown: #8b5e3c;
+  --bookshelf-dark-brown: #5a3d2b;
+  --bookshelf-cream: #fdf6e3;
+  --bookshelf-gold: #d4af37;
+}
+
+/* Hide default cursor for custom effect - works on all screen sizes */
+* {
+  cursor: none !important;
+}
+
+/* Cursor glow effect */
+.cursor-glow {
+  position: fixed;
+  left: var(--cursor-x);
+  top: var(--cursor-y);
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(167, 255, 246, 0.15) 0%, rgba(127, 224, 235, 0.08) 40%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease-out;
+  mix-blend-mode: screen;
+  opacity: 1;
+}
+
+/* Ensure cursor glow is visible on all screen sizes */
+@media (max-width: 768px) {
+  .cursor-glow {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cursor-glow {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* General styles */
+.bookshelf-page {
+  font-family: 'Merriweather', serif;
+  background: var(--deep-background);
+  color: var(--light-text);
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+}
+
+/* Stormlight texture overlay */
+.bookshelf-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(127, 224, 235, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(38, 109, 211, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(167, 255, 246, 0.02) 0%, transparent 30%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Header styles */
+.bookshelf-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.bookshelf-header h1 {
+  font-size: 2.5rem;
+  color: var(--light-text);
+  margin: 0;
+  text-align: center;
+  flex-grow: 1;
+  text-shadow: 0 0 20px rgba(127, 224, 235, 0.3);
+}
+
+.back-button {
+  background: rgba(139, 94, 60, 0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--bookshelf-brown);
+  color: var(--bookshelf-cream);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-family: 'Merriweather', serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 3;
+}
+
+.back-button:hover {
+  background: rgba(107, 74, 47, 0.95);
+  border-color: var(--bookshelf-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--stormlight-glow);
+  padding: 40px;
+  text-shadow: 0 0 10px rgba(127, 224, 235, 0.5);
+  position: relative;
+  z-index: 2;
+}
+
+/* Shelves container */
+.shelves-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Individual shelf section */
+.shelf-section {
+  margin-bottom: 50px;
+}
+
+.shelf-title {
+  font-size: 1.8rem;
+  color: var(--light-text);
+  margin-bottom: 20px;
+  padding-left: 20px;
+  border-left: 4px solid var(--stormlight-glow);
+  text-shadow: 0 0 10px rgba(127, 224, 235, 0.3);
+}
+
+/* Empty shelf message */
+.empty-shelf {
+  text-align: center;
+  color: var(--neutral-base);
+  font-style: italic;
+  padding: 40px;
+  background: rgba(127, 224, 235, 0.05);
+  border-radius: 8px;
+  border: 2px dashed rgba(127, 224, 235, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+/* Bookshelf container */
+.bookshelf-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 40px;
+  background: linear-gradient(to bottom, rgba(139, 94, 60, 0.3), rgba(90, 61, 43, 0.2));
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(127, 224, 235, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Update the books grid */
+.books {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+/* Book card */
+.book-card {
+  background: rgba(12, 14, 18, 0.8);
+  border: 1px solid rgba(127, 224, 235, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  width: 160px;
+  /* Fixed width for consistent layout */
+  height: auto;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(127, 224, 235, 0.2);
+  border-color: rgba(127, 224, 235, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .books {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+  }
+
+  .book-cover {
+    width: 100px;
+    height: 150px;
+  }
+
+  .book-card {
+    width: 140px;
+  }
+
+  .bookshelf-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .bookshelf-header h1 {
+    font-size: 2rem;
+  }
+
+  .shelf-title {
+    font-size: 1.5rem;
+    padding-left: 15px;
+  }
+
+  .bookshelf-container {
+    padding: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .book-card {
+    padding: 12px;
+  }
+
+  .book-title {
+    font-size: 1rem;
+  }
+
+  .book-author {
+    font-size: 0.9rem;
+  }
+
+  .book-description {
+    font-size: 0.8rem;
+  }
+
+  .book-tags {
+    gap: 2px;
+  }
+
+  .book-tag {
+    font-size: 0.65rem;
+    padding: 1px 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .books {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+  }
+
+  .book-cover {
+    width: 80px;
+    height: 120px;
+  }
+
+  .book-card {
+    width: 120px;
+    padding: 12px;
+  }
+}
+
+/* Book cover */
+.book-cover {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card:hover .book-cover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(127, 224, 235, 0.3);
+}
+
+/* Book info */
+.book-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.book-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--light-text);
+  text-shadow: 0 0 10px rgba(127, 224, 235, 0.2);
+}
+
+.book-author {
+  font-size: 1rem;
+  color: var(--neutral-base);
+}
+
+.book-description {
+  font-size: 0.9rem;
+  color: var(--neutral-base);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.book-card:hover .book-description {
+  opacity: 1;
+}
+
+/* Book rating */
+.book-rating {
+  font-size: 0.9rem;
+  color: var(--bookshelf-gold);
+  margin: 4px 0;
+  text-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+}
+
+/* Book tags */
+.book-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.book-tag {
+  background: rgba(127, 224, 235, 0.2);
+  color: var(--stormlight-glow);
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  border: 1px solid rgba(127, 224, 235, 0.3);
+}

@@ -1,0 +1,13 @@
+query Test {
+  me {
+    user_books(order_by: {date_added: asc}) {
+      book {
+        cached_image
+        title
+        cached_tags **FIGURE OUT HOW TO FILTER THIS JUST TO GENRES**
+      }
+      status_id
+      rating
+    }
+  }
+}
