@@ -934,6 +934,14 @@ h2::after {
     top: 3.5rem;
     right: 1rem;
   }
+
+  /* Responsive bookshelf button for tablets */
+  .navigate-bookshelf {
+    top: 1.5rem;
+    left: 1.5rem;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.8rem;
+  }
 }
 
 /* Only disable cursor on actual mobile devices (touch screens) */
@@ -978,6 +986,14 @@ h2::after {
 
   .header-section h1 {
     font-size: 2rem;
+  }
+
+  /* Responsive bookshelf button for small screens */
+  .navigate-bookshelf {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
   }
 
   h2 {
