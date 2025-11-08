@@ -772,6 +772,11 @@
     font-size: 0.9rem;
     border-radius: 6px;
   }
+
+  /* Tablet header adjustments */
+  .bookshelf-header h1 {
+    font-size: 2.2rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -800,6 +805,11 @@
     gap: 4px;
   }
 
+  /* Make stars smaller on mobile */
+  .star {
+    font-size: 0.9rem;
+  }
+
   .books::after,
   .books::before {
     height: 16px;
@@ -817,6 +827,24 @@
     padding: 8px 12px;
     font-size: 0.8rem;
     border-radius: 5px;
+  }
+
+  /* Fix header layout on mobile to prevent overlap */
+  .bookshelf-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+  }
+
+  .bookshelf-header h1 {
+    position: static;
+    transform: none;
+    left: auto;
+    font-size: 2rem;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 0;
   }
 
   /* Mobile modal styles */
